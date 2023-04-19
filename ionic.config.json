@@ -1,5 +1,7 @@
 {
-  "name": "weather-ionic",
-  "integrations": {},
+  "name": "weather-iconic",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

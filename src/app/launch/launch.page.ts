@@ -3,12 +3,14 @@ import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-launch',
+  templateUrl: 'launch.page.html',
+  styleUrls: ['launch.page.scss'],
   standalone: true,
-  imports: [IonicModule, ExploreContainerComponent],
+  imports: [IonicModule, ExploreContainerComponent]
 })
-export class HomePage {
+export class launchPage {
+
   constructor() {}
+
 }
