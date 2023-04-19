@@ -1,7 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import {NamesGeneratorApiService, User} from "../../core/api-clients/names-generator/names-generator-api.service";
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AnimationController, IonicModule} from '@ionic/angular';
+import {User} from "../../core/api-clients/names-generator/names-generator-api.service";
 import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
+import {environment} from "../../../environments/environment";
+import {DetailsHandlerService} from "../../services/details/details-handler.service";
+import {Animation} from "@ionic/core";
 
 @Component({
   selector: 'app-intro',
@@ -10,82 +13,52 @@ import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
   standalone: true,
   imports: [IonicModule, IntroComponent, NgIf, NgOptimizedImage, NgClass],
   providers: [
-   NamesGeneratorApiService
+    DetailsHandlerService
   ]
 })
-export class IntroComponent implements OnInit
+export class IntroComponent implements AfterViewInit, OnInit
 {
-  @Input() name?: string;
+  @ViewChild('cardAnimated', {read: ElementRef}) ionCardAnimation: ElementRef;
+  cardAnimation: Animation | undefined;
 
-  public user: User = {
-  gender: "female",
-  name: {
-    title: "Miss",
-    first: "Jennie",
-    last: "Nichols",
-  },
-  location: {
-    street: {
-      number: 8929,
-      name: "Valwood Pkwy",
-    },
-    city: "Billings",
-    state: "Michigan",
-    country: "United States",
-    postcode: "63104",
-    coordinates: {
-      latitude: "-69.8246",
-      longitude: "134.8719",
-    },
-    timezone: {
-      offset: "+9:30",
-      description: "Adelaide, Darwin",
-    },
-  },
-  email: "jennie.nichols@example.com",
-  login: {
-    uuid: "7a0eed16-9430-4d68-901f-c0d4c1c3bf00",
-    username: "yellowpeacock117",
-    password: "addison",
-    salt: "sld1yGtd",
-    md5: "ab54ac4c0be9480ae8fa5e9e2a5196a3",
-    sha1: "edcf2ce613cbdea349133c52dc2f3b83168dc51b",
-    sha256: "48df5229235ada28389b91e60a935e4f9b73eb4bdb855ef9258a1751f10bdc5d",
-  },
-  dob: {
-    date: "1992-03-08T15:13:16.688Z",
-    age: 30,
-  },
-  registered: {
-    date: "2007-07-09T05:51:59.390Z",
-    age: 14,
-  },
-  phone: "(272) 790-0888",
-  cell: "(489) 330-2385",
-  id: {
-    name: "SSN",
-    value: "405-88-3636",
-  },
-  picture: {
-    large: "https://randomuser.me/api/portraits/men/75.jpg",
-    medium: "https://randomuser.me/api/portraits/med/men/75.jpg",
-    thumbnail: "https://randomuser.me/api/portraits/thumb/men/75.jpg",
-  },
-  nat: "US",
-};
+  @ViewChild('nextAnimated', {read: ElementRef}) ionNextAnimation: ElementRef;
+  nextAnimation: Animation | undefined;
 
-
+  public user: User = environment.defaultUser;
   public isDetailsShows: boolean = false;
 
   constructor(
-    private namesGeneratorApi: NamesGeneratorApiService
-  ) {}
+    private animationCtrl: AnimationController,
+    private detailsHandlerService: DetailsHandlerService,
+  ) {
+  }
+
+  ngAfterViewInit(): void
+  {
+    const cardAnimationRef: Element = this.ionCardAnimation.nativeElement;
+    const nextAnimationRef: Element = this.ionNextAnimation.nativeElement;
+
+    this.cardAnimation = this.animationCtrl.create('card-animation-identifier')
+      .addElement(cardAnimationRef)
+      .duration(500)
+      .iterations(1)
+      .easing('cubic-bezier(0.4, 0.0, 0.2, 1.0)')
+      .fromTo('transform', 'translateX(50%) translateY(-50%) scale(0%)', 'translateX(0%) translateY(0%) scale(1)')
+      .fromTo('opacity', '0', '1');
+
+    this.nextAnimation = this.animationCtrl.create('next-animation-identifier')
+      .addElement(nextAnimationRef)
+      .duration(200)
+      .iterations(1)
+      .easing('cubic-bezier(0.4, 0.0, 0.2, 1.0)')
+      .fromTo('transform', 'translateY(0%) scaleY(100%)', 'translateY(-50%) scaleY(0%)')
+      .fromTo('opacity', '1', '0');
+  }
 
   ngOnInit(): void
   {
-    this.namesGeneratorApi.getNamesList(1).subscribe(response => {
-      this.user = response.results[0];
-    });
+    this.detailsHandlerService.initRandomUser()
+    this.user = this.detailsHandlerService.user;
   }
 
   getShortDate(date: string): string
@@ -95,18 +68,23 @@ export class IntroComponent implements OnInit
 
   renewUser()
   {
-    this.namesGeneratorApi.getNamesList(1).subscribe(response => {
-      this.user = response.results[0];
-    });
+    this.detailsHandlerService.initRandomUser()
+    this.user = this.detailsHandlerService.user;
   }
 
   toggleDetails() {
-    if (this.isDetailsShows) {
-      setTimeout(() => {
-        this.isDetailsShows = false;
-      }, 1000);
-    } else {
-      this.isDetailsShows = true;
+    this.isDetailsShows = !this.isDetailsShows;
+    console.log(this.isDetailsShows)
+
+    if (this.isDetailsShows)
+    {
+      this.cardAnimation?.direction('normal').play();
+      this.nextAnimation?.direction('normal').play();
+    }
+    else
+    {
+      this.cardAnimation?.direction('reverse').play();
+      this.nextAnimation?.direction('reverse').delay(1000).play();
     }
   }
 }

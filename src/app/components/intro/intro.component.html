@@ -15,38 +15,34 @@
       </ion-label>
     </ion-col>
   </ion-row>
-  <ng-container *ngIf="isDetailsShows">
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="6">
-        <ion-card [ngClass]="isDetailsShows ? 'card-animation' : 'card-back-animation'">
-          <img alt="User photo" src="{{this.user.picture.medium}}">
-          <ion-card-header>
-            <ion-card-title>{{this.user.name.title}} {{this.user.name.first}} {{this.user.name.last}}</ion-card-title>
-            <ion-card-subtitle>
-              Birthday date: <strong>{{this.getShortDate(this.user.dob.date)}}</strong>,
-              Age: <strong>{{this.user.dob.age}}</strong></ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <p>Your phone number: <strong>{{this.user.phone}}</strong>,</p>
-            <p>you live in <strong>{{this.user.location.city}}</strong>.</p>
-          </ion-card-content>
-          <ion-button><ion-icon slot="start" name="star"></ion-icon>Yes, it is mee</ion-button>
-          <ion-button color="danger">It is not my name</ion-button>
-          <ion-button fill="clear"
-                      (click)="renewUser()"
-          >
-            Very funny, lets try another</ion-button>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ng-container>
-  <ng-container *ngIf="!isDetailsShows">
-    <ion-row class="ion-justify-content-center __next">
-      <ion-col size="6">
-        <ion-button>
-          Next
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ng-container>
+  <ion-row class="ion-justify-content-center __card">
+    <ion-col size="6">
+      <ion-card #cardAnimated class="cardAnimated">
+        <img alt="User photo" src="{{this.user.picture.medium}}">
+        <ion-card-header>
+          <ion-card-title>{{this.user.name.title}} {{this.user.name.first}} {{this.user.name.last}}</ion-card-title>
+          <ion-card-subtitle>
+            Birthday date: <strong>{{this.getShortDate(this.user.dob.date)}}</strong>,
+            Age: <strong>{{this.user.dob.age}}</strong></ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Your phone number: <strong>{{this.user.phone}}</strong>,</p>
+          <p>you live in <strong>{{this.user.location.city}}</strong>.</p>
+        </ion-card-content>
+        <ion-button><ion-icon slot="start" name="star"></ion-icon>Yes, it is mee</ion-button>
+        <ion-button color="danger">It is not my name</ion-button>
+        <ion-button fill="clear"
+                    (click)="renewUser()"
+        >
+          Very funny, lets try another</ion-button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center __next">
+    <ion-col size="6">
+      <ion-button #nextAnimated class="nextAnimated">
+        Next
+      </ion-button>
+    </ion-col>
+  </ion-row>
 </ion-grid>

@@ -13,44 +13,10 @@ ion-row{
   text-align: center;
 }
 
-.card-animation {
-  animation-name: cardAnimation;
-  animation-duration: 0.5s;
-  animation-timing-function: ease;
+.__card{
+  height: 0;
 }
 
-@keyframes cardAnimation {
-  0% {
-    opacity: 0;
-    transform: translateY(-100%) scale(0.5);
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(0) scale(1.2);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.card-back-animation {
-  animation-name: cardAnimation;
-  animation-duration: 0.5s;
-  animation-timing-function: ease;
-}
-
-@keyframes card-back-animation {
-  100% {
-    opacity: 0;
-    transform: translateY(-100%) scale(0.5);
-  }
-  30% {
-    opacity: 1;
-    transform: translateY(0) scale(1.2);
-  }
-  0% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.cardAnimated{
+  opacity: 0;
 }

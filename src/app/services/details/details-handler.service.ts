@@ -1,38 +1,32 @@
 import { Injectable } from '@angular/core';
+import {NamesGeneratorApiService, User} from "../../core/api-clients/names-generator/names-generator-api.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DetailsHandlerService
 {
-  constructor() {
+  constructor(
+    private namesGeneratorApi: NamesGeneratorApiService,
+  ) {}
+
+  private _user: User = environment.defaultUser;
+
+  get user(): User
+  {
+    return this._user;
   }
 
-  private _name:string = '';
-  private _place:string = '';
-
-  get name():string
+  set user(value:User)
   {
-    return this._name;
+    this._user = value;
   }
 
-  set name(value:string)
+  public initRandomUser():void
   {
-    this._name = value;
-  }
-
-  public initRandomName():void
-  {
-    this._name = 'Random Name';
-  }
-
-  get place():string
-  {
-    return this._place;
-  }
-
-  set place(value:string)
-  {
-    this._place = value;
+    this.namesGeneratorApi.getNamesList(1).subscribe(response => {
+      this._user = response.results[0];
+    });
   }
 }
