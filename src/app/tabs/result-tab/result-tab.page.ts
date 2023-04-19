@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { IntroComponent } from '../hello-tab/intro/intro.component';
+import { IntroComponent } from '../../components/intro/intro.component';
 import {TabsToolbarComponent} from "../tabs-toolbar/tabs-toolbar.component";
 
 @Component({
