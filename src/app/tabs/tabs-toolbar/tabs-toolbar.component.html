@@ -1,0 +1,11 @@
+<ion-toolbar>
+  <ion-title>
+    {{title}}
+  </ion-title>
+  <ion-button fill="outline" slot="end">
+    <ion-toggle
+      [checked]="this.darkModeService.isDarkMode"
+      (ionChange)="this.toggleThemes($event)"
+    >Theme</ion-toggle>
+  </ion-button>
+</ion-toolbar>
