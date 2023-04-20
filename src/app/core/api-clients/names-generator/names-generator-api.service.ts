@@ -71,7 +71,8 @@ interface Picture {
   thumbnail: string;
 }
 
-export interface User {
+export interface UserDetails
+{
   gender: string;
   name: Name;
   location: {

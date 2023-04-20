@@ -1,8 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AnimationController, IonicModule} from '@ionic/angular';
-import {User} from "../../core/api-clients/names-generator/names-generator-api.service";
+import {UserDetails} from "../../core/api-clients/names-generator/names-generator-api.service";
 import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
-import {environment} from "../../../environments/environment";
 import {DetailsHandlerService} from "../../services/details/details-handler.service";
 import {Animation} from "@ionic/core";
 
@@ -24,7 +23,7 @@ export class IntroComponent implements AfterViewInit, OnInit
   @ViewChild('nextAnimated', {read: ElementRef}) ionNextAnimation: ElementRef;
   nextAnimation: Animation | undefined;
 
-  public user: User = environment.defaultUser;
+  public currentUser: UserDetails = this.renewUser();
   public isDetailsShows: boolean = false;
 
   constructor(
@@ -57,8 +56,8 @@ export class IntroComponent implements AfterViewInit, OnInit
 
   ngOnInit(): void
   {
-    this.detailsHandlerService.initRandomUser()
-    this.user = this.detailsHandlerService.user;
+    this.currentUser = this.renewUser();
+    console.log(this.currentUser);
   }
 
   getShortDate(date: string): string
@@ -66,15 +65,14 @@ export class IntroComponent implements AfterViewInit, OnInit
     return date.split('T')[0];
   }
 
-  renewUser()
+  renewUser(): UserDetails
   {
-    this.detailsHandlerService.initRandomUser()
-    this.user = this.detailsHandlerService.user;
+    this.detailsHandlerService.initRandomUser();
+    return this.detailsHandlerService.user;
   }
 
   toggleDetails() {
     this.isDetailsShows = !this.isDetailsShows;
-    console.log(this.isDetailsShows)
 
     if (this.isDetailsShows)
     {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {NamesGeneratorApiService, User} from "../../core/api-clients/names-generator/names-generator-api.service";
+import {NamesGeneratorApiService, UserDetails} from "../../core/api-clients/names-generator/names-generator-api.service";
 import {environment} from "../../../environments/environment";
 
 @Injectable({
@@ -11,14 +11,14 @@ export class DetailsHandlerService
     private namesGeneratorApi: NamesGeneratorApiService,
   ) {}
 
-  private _user: User = environment.defaultUser;
+  private _user: UserDetails = environment.defaultUser;
 
-  get user(): User
+  get user(): UserDetails
   {
     return this._user;
   }
 
-  set user(value:User)
+  set user(value:UserDetails)
   {
     this._user = value;
   }

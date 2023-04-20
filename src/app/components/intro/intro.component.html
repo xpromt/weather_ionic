@@ -6,7 +6,7 @@
         <ion-button slot="end" size="default" color="success"
                     (click)="toggleDetails()"
         >
-          {{this.user.name.first}}
+          {{this.currentUser.name.first}}
         </ion-button>
       </ion-item>
       <ion-label>
@@ -18,21 +18,21 @@
   <ion-row class="ion-justify-content-center __card">
     <ion-col size="6">
       <ion-card #cardAnimated class="cardAnimated">
-        <img alt="User photo" src="{{this.user.picture.medium}}">
+        <img class="__userpic" alt="User photo" src="{{this.currentUser.picture.medium}}">
         <ion-card-header>
-          <ion-card-title>{{this.user.name.title}} {{this.user.name.first}} {{this.user.name.last}}</ion-card-title>
+          <ion-card-title>{{this.currentUser.name.title}} {{this.currentUser.name.first}} {{this.currentUser.name.last}}</ion-card-title>
           <ion-card-subtitle>
-            Birthday date: <strong>{{this.getShortDate(this.user.dob.date)}}</strong>,
-            Age: <strong>{{this.user.dob.age}}</strong></ion-card-subtitle>
+            Birthday date: <strong>{{this.getShortDate(this.currentUser.dob.date)}}</strong>,
+            Age: <strong>{{this.currentUser.dob.age}}</strong></ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          <p>Your phone number: <strong>{{this.user.phone}}</strong>,</p>
-          <p>you live in <strong>{{this.user.location.city}}</strong>.</p>
+          <p>Your phone number: <strong>{{this.currentUser.phone}}</strong>,</p>
+          <p>you live in <strong>{{this.currentUser.location.city}}</strong>.</p>
         </ion-card-content>
         <ion-button><ion-icon slot="start" name="star"></ion-icon>Yes, it is mee</ion-button>
-        <ion-button color="danger">It is not my name</ion-button>
+        <ion-button color="danger">That's not me</ion-button>
         <ion-button fill="clear"
-                    (click)="renewUser()"
+                    (click)="this.currentUser = renewUser()"
         >
           Very funny, lets try another</ion-button>
       </ion-card>
