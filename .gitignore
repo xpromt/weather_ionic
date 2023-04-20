@@ -16,7 +16,8 @@ log.txt
 /.sourcemaps
 /.versions
 /coverage
-/src/environments
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
 
 # Ionic
 /.ionic
