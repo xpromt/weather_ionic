@@ -38,7 +38,8 @@
           <p>you live in <strong>{{this.currentUser.location.city}}</strong>.</p>
         </ion-card-content>
         <ion-button
-          (click)="this.router.navigate(['/tabs/world-tab']);"
+          (click)="this.router.navigate(['/tabs/world-tab']);
+              this.setNewUser();"
         ><ion-icon slot="start" name="star"></ion-icon>Yes, it is mee</ion-button>
         <ion-button color="danger" id="open-custom-dialog" expand="block"
         >That's not me</ion-button>

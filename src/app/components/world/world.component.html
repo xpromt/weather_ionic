@@ -32,6 +32,19 @@
           No
         </ion-button>
       </ion-item>
+      <ng-container *ngIf="currentWeather">
+        <ion-item lines="none">
+          <div class="weather-card">
+            <div class="weather-card__location">
+              <p>Ok, I see it is {{ currentWeather?.current.condition.text }} in {{ currentWeather?.location.name }}, {{ currentWeather?.location.country }}</p>
+              <img [src]="currentWeather?.current.condition.icon" alt="{{ currentWeather?.current.condition.text }}">
+            </div>
+            <div class="weather-card__temperature">
+              <p class="temperature">It is {{ currentWeather?.current.temp_c }}°C and feels like {{ currentWeather?.current.feelslike_c }}°C</p>
+            </div>
+          </div>
+        </ion-item>
+      </ng-container>
     </ion-col>
   </ion-row>
 </ion-grid>

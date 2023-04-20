@@ -4,6 +4,7 @@ import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DetailsHandlerService} from '../../services/details/details-handler.service';
 import {IntroComponent} from '../intro/intro.component';
+import {WeatherHandlerService} from '../../services/weather/weather-handler.service';
 
 @Component({
   selector: 'app-world',
@@ -15,17 +16,25 @@ import {IntroComponent} from '../intro/intro.component';
     DetailsHandlerService
   ]
 })
-export class WorldComponent  implements OnInit {
+export class WorldComponent  implements OnInit
+{
+  public currentWeather: any = null;
 
   constructor(
-    public detailsHandlerService: DetailsHandlerService
+    public detailsHandlerService: DetailsHandlerService,
+    public weatherHandlerService: WeatherHandlerService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.showWeather();
+    console.log(this.detailsHandlerService.user)
+  }
 
   public showWeather()
   {
-
+    this.weatherHandlerService.city = this.detailsHandlerService.user.location.city;
+    this.weatherHandlerService.refreshWeather();
+    this.currentWeather = this.weatherHandlerService.weather;
   }
 
   public changeCity()

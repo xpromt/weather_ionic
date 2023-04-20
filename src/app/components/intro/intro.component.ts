@@ -94,5 +94,11 @@ export class IntroComponent implements AfterViewInit, OnInit
     const newName: string = this.currentUser.name.first;
     this.currentUser = environment.unknownUser;
     this.currentUser.name.first = newName;
+    this.detailsHandlerService.user = this.currentUser;
+  }
+
+  public setNewUser(): void
+  {
+    this.detailsHandlerService.user = this.currentUser;
   }
 }
