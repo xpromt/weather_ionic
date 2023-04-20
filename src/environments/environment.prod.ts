@@ -1,6 +1,8 @@
 export const environment = {
   production: true,
 
+  weatherApiKey: "0f27f166bf554081992111638231704",
+
   defaultUser: {
     gender: "male",
     name: {

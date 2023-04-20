@@ -4,13 +4,16 @@ import {UserDetails} from "../../core/api-clients/names-generator/names-generato
 import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
 import {DetailsHandlerService} from "../../services/details/details-handler.service";
 import {Animation} from "@ionic/core";
+import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.component.html',
   styleUrls: ['./intro.component.scss'],
   standalone: true,
-  imports: [IonicModule, IntroComponent, NgIf, NgOptimizedImage, NgClass],
+  imports: [IonicModule, IntroComponent, NgIf, NgOptimizedImage, NgClass, FormsModule],
   providers: [
     DetailsHandlerService
   ]
@@ -27,6 +30,7 @@ export class IntroComponent implements AfterViewInit, OnInit
   public isDetailsShows: boolean = false;
 
   constructor(
+    public router: Router,
     private animationCtrl: AnimationController,
     private detailsHandlerService: DetailsHandlerService,
   ) {
@@ -57,7 +61,6 @@ export class IntroComponent implements AfterViewInit, OnInit
   ngOnInit(): void
   {
     this.currentUser = this.renewUser();
-    console.log(this.currentUser);
   }
 
   getShortDate(date: string): string
@@ -84,5 +87,12 @@ export class IntroComponent implements AfterViewInit, OnInit
       this.cardAnimation?.direction('reverse').play();
       this.nextAnimation?.direction('reverse').delay(1000).play();
     }
+  }
+
+  public changeUserName()
+  {
+    const newName: string = this.currentUser.name.first;
+    this.currentUser = environment.unknownUser;
+    this.currentUser.name.first = newName;
   }
 }

@@ -1,0 +1,37 @@
+<ion-grid>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="6">
+      <ion-item lines="none">
+        <ion-title>Well, hello,</ion-title>
+        <ion-title color="primary">{{this.detailsHandlerService.user.name.first}}</ion-title>
+      </ion-item>
+      <br>
+      <ng-container *ngIf="detailsHandlerService.user.location.city === 'unknown'">
+        <ion-item lines="none">
+          <ion-title color="medium">Are you homeless?</ion-title>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="detailsHandlerService.user.location.city !== 'unknown'">
+        <ion-item lines="none">
+          <ion-title color="medium">Do you live in</ion-title>
+          <ion-title color="primary">{{this.detailsHandlerService.user.location.city}}?</ion-title>
+        </ion-item>
+      </ng-container>
+      <br>
+      <ion-item lines="none">
+        <ion-button color="primary"
+                    slot="start"
+                    size="default"
+                    (click)="this.showWeather()">
+          Yes
+        </ion-button>
+        <ion-button color="warning"
+                    slot="end"
+                    size="default"
+                    (click)="this.changeCity()">
+          No
+        </ion-button>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

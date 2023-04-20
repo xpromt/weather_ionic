@@ -1,4 +1,11 @@
 <ion-toolbar>
+  <ng-container *ngIf="!isMain">
+    <ion-button fill="outline" slot="start"
+      (click)="this.router.navigate(['/tabs/hello-tab'])"
+    >
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>
+  </ng-container>
   <ion-title>
     {{title}}
   </ion-title>
